@@ -31,7 +31,7 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v1
       with:
-        node-version: 14
+        node-version: 16
     - name: Setup npm
       run: sudo npm i -g npm@7
     - name: Install build deps
@@ -39,13 +39,13 @@ jobs:
     - name: Run prebuild script
       run: npm run prebuild-linux
     - name: Build for x64 / ia32
-      run: ./node_modules/.bin/electron-builder build -l --x64 --ia32
+      run: npm exec electron-builder build -l --x64 --ia32
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - uses: actions/upload-artifact@v2
       with:
-        name: Linux-AppImages
-        path: dist/*.AppImage
+        name: Linux-deb
+        path: dist/*.deb
         if-no-files-found: error
 
   build-linux-arm32:
@@ -76,15 +76,15 @@ jobs:
     - name: Run prebuild outside of QEMU emulator
       run: sudo npm i -g npm@7 && npm install && rsync -a --info=progress2 src/ prebuild-src --exclude node_modules && node prebuild-minify.js && rm -rf node_modules
     - name: Build for arm32v7 (aka armv7l)
-      uses: docker://arm32v7/node:14-buster
+      uses: docker://arm32v7/node:16-stretch
       with:
-        args: bash -c "npm i -g npm@7 && npm install && ./node_modules/.bin/electron-builder build -l --armv7l"
+        args: bash -c "npm i -g npm@7 && npm install && npm exec electron-builder build -l --armv7l"
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - uses: actions/upload-artifact@v2
       with:
-        name: Linux-arm32-AppImage
-        path: dist/*.AppImage
+        name: Linux-arm32-deb
+        path: dist/*.deb
         if-no-files-found: error
 
   build-linux-arm64:
@@ -115,15 +115,15 @@ jobs:
     - name: Run prebuild outside of QEMU emulator
       run: sudo npm i -g npm@7 && npm install && rsync -a --info=progress2 src/ prebuild-src --exclude node_modules && node prebuild-minify.js && rm -rf node_modules
     - name: Build for arm64 (aka arm64v8)
-      uses: docker://arm64v8/node:14-buster
+      uses: docker://arm64v8/node:16-stretch
       with:
-        args: bash -c "npm i -g npm@7 && npm install && ./node_modules/.bin/electron-builder build -l --arm64"
+        args: bash -c "npm i -g npm@7 && npm install && npm exec electron-builder build -l --arm64"
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - uses: actions/upload-artifact@v2
       with:
-        name: Linux-arm64-AppImage
-        path: dist/*.AppImage
+        name: Linux-arm64-deb
+        path: dist/*.deb
         if-no-files-found: error
 
   build-windows:
@@ -150,7 +150,7 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v1
       with:
-        node-version: 14
+        node-version: 16
     - name: Setup npm
       run: npm i -g npm@7
     - name: npm install
@@ -189,7 +189,7 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v1
       with:
-        node-version: 14
+        node-version: 16
     - name: Setup npm
       run: sudo npm i -g npm@7
     - name: npm install
@@ -203,3 +203,4 @@ jobs:
         name: MacOS-Image
         path: dist/*.dmg
         if-no-files-found: error
+
