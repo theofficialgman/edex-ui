@@ -1,7 +1,7 @@
 {
   "name": "edex-ui",
   "productName": "eDEX-UI",
-  "version": "2.2.8",
+  "version": "2.2.8-2022-04-pre",
   "description": "A science fiction desktop running everywhere. Awesome.",
   "keywords": [
     "desktop",
@@ -56,57 +56,21 @@
     "artifactName": "eDEX-UI-${os}-${arch}.${ext}",
     "linux": {
       "target": [
-        "AppImage"
+        "deb"
       ],
       "category": "System",
       "icon": "media/linuxIcons"
-    },
-    "appImage": {
-      "artifactName": "eDEX-UI-Linux-${arch}.AppImage"
-    },
-    "mac": {
-      "target": [
-        {
-          "target": "dmg",
-          "arch": [
-            "x64"
-          ]
-        }
-      ],
-      "category": "public.app-category.utilities",
-      "icon": "media/icon.icns"
-    },
-    "dmg": {
-      "artifactName": "eDEX-UI-macOS-${arch}.dmg"
-    },
-    "win": {
-      "target": [
-        {
-          "target": "nsis",
-          "arch": [
-            "x64",
-            "ia32"
-          ]
-        }
-      ],
-      "icon": "media/icon.ico"
-    },
-    "nsis": {
-      "artifactName": "eDEX-UI-Windows-${arch}.exe",
-      "oneClick": false,
-      "allowToChangeInstallationDirectory": true,
-      "deleteAppDataOnUninstall": true
     }
   },
   "dependencies": {
-    "clean-css": "5.2.1",
-    "electron": "^12.1.0",
-    "electron-builder": "^22.14.5",
-    "electron-rebuild": "^2.3.5",
-    "mime-types": "^2.1.33",
+    "clean-css": "5.3.0",
+    "electron": "^18.2.4",
+    "electron-builder": "^22.14.13",
+    "electron-rebuild": "^3.2.7",
+    "mime-types": "^2.1.35",
     "node-abi": "2.30.1",
     "node-json-minify": "1.0.0",
-    "terser": "^5.9.0"
+    "terser": "^5.12.1"
   },
   "optionalDependencies": {
     "cson-parser": "4.0.9"

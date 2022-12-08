@@ -209,6 +209,8 @@ function createWindow(settings) {
         slashes: true
     }));
 
+    require('@electron/remote/main').enable(win.webContents);
+
     signale.complete("Frontend window created!");
     win.show();
     if (!settings.allowWindowed) {
